@@ -4,6 +4,7 @@
 import pandas as pd
 import streamlit as st
 import time, os, csv
+import dropbox
 
 ############################# Flow of the application
 # Sets global variables and then goes inside the main() functions. There calls the required global variables. Loads the processed dataframe and creates UI components. On user click on the contact_btn button, calls the function to validate user input. If successful, then calls function to get patwari details. If successful, displays to the user. If validation fails, gives error to the user to fill the fields correctly. If details not found in df, tells the user that we don't have any match. All all the three cases i.e. successful displaying of details, validation error, records not found, records logs into the logs.csv file with timestamp and user details.
@@ -13,7 +14,7 @@ import time, os, csv
 # Global Variables of df, and ready csv_data_filepath
 session = st.session_state
 csv_data_filepath = 'patwari-contacts-data.csv'
-log_filename = 'logs.csv'
+log_filename = 'contactpatwari-logs.csv'
 df = None
 # extracted from the df mouza column and hard coded. To avoid unnecessary computation. However, loaded processed data can be sent to the prepare_known_mouzas_list and uncommented the 3rd last line to get this list printed in the terminal.
 data_mouzas = [
@@ -139,6 +140,32 @@ def handle_user_input(mouza_name):
         return 1
 
 
+def update_dropbox_logsfile(log_content):
+    print('\n\nInside update_dropbox_logsfile()')
+    token = 'sl.BwDot-_TH3sdYE4NyS3AGvha5ZdrfsSSIuRP_l3jq54lrjEbu7p1sYIcS82sGyZBTinvd-_RVnKi-aCYxDHr-MLdAwPOAvaoLWcRk7nwyRqBGDKBGZqA6I2IYBPkoCQ0SVNd5rwvfB5F'
+
+    # Connecting to dropbox
+    try:
+        dbx = dropbox.Dropbox(token)
+        dbx.users_get_current_account()
+        print('-- Dropbox connection successful.')
+
+    except:
+        print('-- Error connecting to dropbox.')
+
+    # updating server file
+    print('-- Uploading file to server')
+    try:
+        with open(log_filename, 'rb') as lf:
+            dbx.files_upload(lf.read(), '/' + log_filename, mode = dropbox.files.WriteMode('overwrite'))
+
+        print('-- Server file uploaded (overwritten) successfully. Returning 0')
+        return 0
+
+    except:
+        print('-- An error occured while uploading the updated file. Returning 1')
+        return 1
+
 # Recording that the username with profession and contact_no successfully takesn the details of patwari of mouza: selected mouze. The file is a csv.
 def record_log(name, profession, contact, mouza, status):
     '''Requires user_name, profession, contact, mouza, status and records log with timestamp. The file is a csv i.e. logs.csv'''
@@ -160,25 +187,21 @@ def record_log(name, profession, contact, mouza, status):
     print('-- Preparing log')
     log_content = [timestamp, name, profession, contact, mouza, status]
 
-    # recording it
-    print('-- Recording it')
-    
     if not os.path.exists(log_filename):
         print('Writting log details (file was not present)')
         with open(log_filename, 'w', newline = '') as lf:
             csv_writter = csv.writer(lf)
             csv_writter.writerow(log_content)
     else:
-        print('Appending log details')
+        print('-- Appending log details')
         with open(log_filename, 'a', newline = '') as lf:
             csv_writter = csv.writer(lf)
             csv_writter.writerow(log_content)
 
+    update_dropbox_logsfile(log_content)
+
     print('-- Log saved. Returning 0')
     return 0
-    
-    # Add timestamping feature here and then write timestamp and other infor in a csv file. (logs.txt)
-
 
 def main():
     ################################## Configuring the app
