@@ -142,7 +142,7 @@ def handle_user_input(mouza_name):
 
 def update_dropbox_logsfile(log_content):
     print('\n\nInside update_dropbox_logsfile()')
-    token = 'sl.BwDot-_TH3sdYE4NyS3AGvha5ZdrfsSSIuRP_l3jq54lrjEbu7p1sYIcS82sGyZBTinvd-_RVnKi-aCYxDHr-MLdAwPOAvaoLWcRk7nwyRqBGDKBGZqA6I2IYBPkoCQ0SVNd5rwvfB5F'
+    token = st.secrets['dropbox_token']
 
     # Connecting to dropbox
     try:
@@ -203,6 +203,8 @@ def record_log(name, profession, contact, mouza, status):
     print('-- Log saved. Returning 0')
     return 0
 
+
+###################################### MAIN
 def main():
     ################################## Configuring the app
     global df, data_mouzas
