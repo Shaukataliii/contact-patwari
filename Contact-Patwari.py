@@ -261,6 +261,13 @@ def main():
                 patwari_details = handle_user_input(session.selected_mouza)
 
                 if isinstance(patwari_details, list):
+
+                    # Recording that the username with profession and contact_no successfully takesn the details of patwari of mouza: selected mouze. The file is a csv.
+                    print('Recording log..')
+                    record_log(session.user_name, session.user_profession, session.user_contact, session.selected_mouza, 'Successful')
+                    print('Done \n\n')
+                    
+                    # Printing output
                     print('\n-------------------------------------------------------- \
                         \n Giving details to user... \n')
 
@@ -268,29 +275,29 @@ def main():
                     st.write(f':blue[Patwari name:] {name}')
                     st.write(f':blue[Contact:] {contact}')
 
-                    # Recording that the username with profession and contact_no successfully takesn the details of patwari of mouza: selected mouze. The file is a csv.
-                    print('Recording log..')
-                    record_log(session.user_name, session.user_profession, session.user_contact, session.selected_mouza, 'Successful')
-                    print('Done \n\n')
 
                 # If result not found
                 else:
-                    st.error('Details not found.')
-
+                    # recording logs
                     print('Recording log..')
                     record_log(session.user_name, session.user_profession, session.user_contact, session.selected_mouza, 'No Details')
                     print('Done \n\n')
 
+                    # printing output
+                    st.error('Details not found.')
+
+
             # if inputs are not valid
             else:
-                st.error('Please fill all the fields correctly.')
-
+                # recording logs
                 print('Recording log..')
                 record_log(session.user_name, session.user_profession, session.user_contact, session.selected_mouza, 'Validation Failed')
                 print('Done \n\n')
                 # Uncomment for debugging
                 # st.write(session)
 
+                # printing output (error)
+                st.error('Please fill all the fields correctly.')
 
 if __name__ == '__main__':
     main()
