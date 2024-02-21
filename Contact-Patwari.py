@@ -1,4 +1,6 @@
-# 📞 Contact-Patwari
+# git add .
+# git commit -m 'commit name'
+# git push -u origin main
 import pandas as pd
 import streamlit as st
 import time, os, csv
