@@ -23,8 +23,8 @@ st.selectbox(label = 'Select your device.', options = ['Desktop', 'Mobile'], key
 #--------------------------------- Handling user selection
 if session.user_device == 'Desktop':
     # st.subheader('This place is for desktop video')
-    st.video('contact-patwari-app-intro.mp4')
+    st.video('desktop-contact-patwari-intro.mp4')
 
 # for any value (i.e. mobile) of user_device selectbox
 else:
-    st.video('contact-patwari-app-intro.mp4')
+    st.video('mobile-contact-patwari-intro.mp4')
