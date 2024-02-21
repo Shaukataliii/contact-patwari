@@ -142,6 +142,7 @@ def handle_user_input(mouza_name):
 
 def update_dropbox_logsfile(log_content):
     print('\n\nInside update_dropbox_logsfile()')
+    # token = st.secrets['dropbox_token']
     token = st.secrets['dropbox_token']
 
     # Connecting to dropbox
@@ -153,8 +154,22 @@ def update_dropbox_logsfile(log_content):
     except:
         print('-- Error connecting to dropbox.')
 
-    # updating server file
-    print('-- Uploading file to server')
+    # Downloading server file contents and writting to local file
+    print('-- Preserving existing data. Downloading server file contents and writting to local file')
+    with open(log_filename, 'wb') as llf:
+        _, response = dbx.files_download('/' + log_filename)
+        llf.write(response.content)
+
+    print('-- done')
+
+    # Updating downloaded file
+    print('-- Appending log details')
+    with open(log_filename, 'a', newline = '') as lf:
+        csv_writter = csv.writer(lf)
+        csv_writter.writerow(log_content)
+
+    # Uploading updated file to server
+    print('-- Uploading updated file to server')
     try:
         with open(log_filename, 'rb') as lf:
             dbx.files_upload(lf.read(), '/' + log_filename, mode = dropbox.files.WriteMode('overwrite'))
@@ -165,6 +180,7 @@ def update_dropbox_logsfile(log_content):
     except:
         print('-- An error occured while uploading the updated file. Returning 1')
         return 1
+
 
 # Recording that the username with profession and contact_no successfully takesn the details of patwari of mouza: selected mouze. The file is a csv.
 def record_log(name, profession, contact, mouza, status):
@@ -187,17 +203,8 @@ def record_log(name, profession, contact, mouza, status):
     print('-- Preparing log')
     log_content = [timestamp, name, profession, contact, mouza, status]
 
-    if not os.path.exists(log_filename):
-        print('Writting log details (file was not present)')
-        with open(log_filename, 'w', newline = '') as lf:
-            csv_writter = csv.writer(lf)
-            csv_writter.writerow(log_content)
-    else:
-        print('-- Appending log details')
-        with open(log_filename, 'a', newline = '') as lf:
-            csv_writter = csv.writer(lf)
-            csv_writter.writerow(log_content)
-
+    # Handling log updation
+    print('-- Handling log updation. Going inside update_dropbox_logsfile')
     update_dropbox_logsfile(log_content)
 
     print('-- Log saved. Returning 0')
