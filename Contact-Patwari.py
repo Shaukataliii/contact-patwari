@@ -83,11 +83,35 @@ def load_df():
     # Indicating the use of the global var
     global df, csv_data_filepath
     df = pd.read_csv(csv_data_filepath)
-    print('-- Data loaded globally.')
+    print('-- Data loaded globally.\n')
     return 0
 
 
-# Validates the user's input
+###################################### Validates the user's input
+def validate_contact(user_contact):
+
+    print('\nInside validate_contact()')
+    fake_contacts = [
+        '00000000000', '11111111111', '22222222222', '33333333333', '44444444444', '55555555555', '66666666666', '77777777777', '88888888888', '99999999999', '03000000000', '03011111111', '03022222222', '03696969696', '03707070707',
+        '03033333333', '03044444444', '03055555555', '03066666666', '03077777777', '03088888888', '03099999999', '03101010101', '03111111111', '03121212121', '03131313131', '03141414141', '03151515151', '03161616161', '03171717171', '03181818181', '03191919191', '03202020202', '03212121212', '03222222222', '03232323232', '03242424242', '03252525252', '03262626262', '03272727272', '03282828282', '03292929292', '03303030303', '03313131313', '03323232323', '03333333333', '03343434343', '03353535353', '03363636363', '03373737373', '03383838383', '03393939393', '03404040404', '03414141414', '03424242424', '03434343434', '03444444444', '03454545454', '03464646464', '03474747474', '03484848484', '03494949494', '03505050505', '03515151515', '03686868686',
+        '03525252525', '03535353535', '03545454545', '03555555555', '03565656565', '03575757575', '03585858585', '03595959595', '03606060606', '03616161616', '03626262626', '03636363636', '03646464646', '03656565656', '03666666666', '03676767676'
+    ]
+    
+    # if provided user contact no is not a digit or (it's length is something other than 11) then returning 1
+    if not (user_contact.isdigit()) or not (len(user_contact) == 11):
+        print(f'Length is not 11 or is not digit. Isdigit: {user_contact.isdigit()}. Length = {len(user_contact)}. Returning 1\n')
+        return 1
+
+    # if the provided user contact exists in fake_contacts[] returning 1 else 0
+    elif user_contact in fake_contacts:
+        print('-- Provided contact is fake. Returning 1\n')
+        return 1
+    
+    else:
+        print("-- User contact don't exist in fake_contacts[]. Returning 0\n")
+        return 0
+
+
 def validate_input():
     print('Inside validate_input()')
     global session
@@ -96,24 +120,26 @@ def validate_input():
     input_fields = [session.user_name, session.user_profession, session.selected_mouza, session.user_contact]
     inputs_bools = list(map(lambda input: True in [input_char.isalpha() or input_char.isspace() for input_char in input], input_fields[0:3]))
 
+    contact_validation_res = validate_contact(input_fields[3])
+
     if '' in input_fields:
-        print('-- Null value found in user inputs. Returning 1')
+        print('-- Null value found in user inputs. Returning 1\n')
         return 1
 
     # checking user inputs except contact, if they are not alpha (abc) then returning 1.
 
     if False in inputs_bools:
-        print(f'-- Alpha inputs contain numerical data. The value is {input_fields[inputs_bools.index(False)]}. Returning 1')
+        print(f'-- Alpha inputs contain numerical data. The value is {input_fields[inputs_bools.index(False)]}. Returning 1\n')
         return 1
 
-    elif not (input_fields[3].isdigit()) or not (len(input_fields[3]) >= 11):
-        print('-- User contact is not numeric or is less than 11. Length:', len(input_fields[3]), 'Is Digit: ', input_fields[3].isdigit())
+    # passing user contact no to validate_contact() and checking if the response is not 0 then returning 1
+    elif contact_validation_res != 0:
+        print(f'-- User contact is not numeric or its length is not 11 or it exists in the fake_contacts[]. Provided contact: { input_fields[3] }\n')
         return 1
 
     else:
-        print('All user inputs are validated. Returning 0')
+        print('All user inputs are validated. Returning 0\n')
         return 0
-
 
 # Takes mouza_name and checks if we have this mouza. If yes then returns [patwari_name, patwari_no] else returns 1
 def handle_user_input(mouza_name):
@@ -140,10 +166,11 @@ def handle_user_input(mouza_name):
         return 1
 
 
+###################################### Updates dropbox logs file
 def update_dropbox_logsfile(log_content):
     print('\n\nInside update_dropbox_logsfile()')
     # token = st.secrets['dropbox_token']
-    token = st.secrets['dropbox_token']
+    token = 'sl.BwDHlIC9JmqEfYCd1vQwgn5hP5RTg7xBqr82jkuJmr3UsVi3Hap7aiq8bcqJnwJnbGPlteMJ3DV274I8D8pM4-5z_Fkuv0Njbz5KlNUblO6m1p6u10pAfxh76x2qttDYmQUaIXYBefu0'
 
     # Connecting to dropbox
     try:
@@ -174,11 +201,11 @@ def update_dropbox_logsfile(log_content):
         with open(log_filename, 'rb') as lf:
             dbx.files_upload(lf.read(), '/' + log_filename, mode = dropbox.files.WriteMode('overwrite'))
 
-        print('-- Server file uploaded (overwritten) successfully. Returning 0')
+        print('-- Server file uploaded (overwritten) successfully. Returning 0\n')
         return 0
 
     except:
-        print('-- An error occured while uploading the updated file. Returning 1')
+        print('-- An error occured while uploading the updated file. Returning 1\n')
         return 1
 
 
@@ -207,7 +234,7 @@ def record_log(name, profession, contact, mouza, status):
     print('-- Handling log updation. Going inside update_dropbox_logsfile')
     update_dropbox_logsfile(log_content)
 
-    print('-- Log saved. Returning 0')
+    print('-- Log saved. Returning 0\n')
     return 0
 
 
@@ -232,6 +259,7 @@ def main():
     # title part
     st.title(':telephone_receiver: Contact Patwari')
     st.caption( "We possess contact details for Punjab patwaris across more than 100 villages. If you are a patwari and don't find your details here, kindly reach out to the owner via WhatsApp at: 0318-5842448. If you want to know How to use the app. Just hit the sidebar icon > and click Usage.")
+    st.video('desktop-contact-patwari-intro.mp4')
     st.divider()
 
     # user details part
