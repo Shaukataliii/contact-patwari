@@ -169,8 +169,8 @@ def handle_user_input(mouza_name):
 ###################################### Updates dropbox logs file
 def update_dropbox_logsfile(log_content):
     print('\n\nInside update_dropbox_logsfile()')
-    # token = st.secrets['dropbox_token']
-    token = 'sl.BwDHlIC9JmqEfYCd1vQwgn5hP5RTg7xBqr82jkuJmr3UsVi3Hap7aiq8bcqJnwJnbGPlteMJ3DV274I8D8pM4-5z_Fkuv0Njbz5KlNUblO6m1p6u10pAfxh76x2qttDYmQUaIXYBefu0'
+    token = st.secrets['dropbox_token']
+    # token = ''
 
     # Connecting to dropbox
     try:
