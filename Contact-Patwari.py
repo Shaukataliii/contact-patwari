@@ -169,11 +169,11 @@ def handle_user_input(mouza_name):
 ###################################### Updates dropbox logs file
 def update_dropbox_logsfile(log_content):
     print('\n\nInside update_dropbox_logsfile()')
-    app_key = st.secrets['dbx_app_key']
-    app_secret = st.secrets['dbx_app_secret']
+    # app_key = st.secrets['dbx_app_key']
+    # app_secret = st.secrets['dbx_app_secret']
     
-    token = st.secrets['dbx_token']
-    # token = ''
+    # token = st.secrets['dbx_token']
+    token = 'sl.BwKlgFhRDGxHGLxhQA72E5DQZN-9EtMwdAUN079xC9zM_bUSiy0r-PbLiI8-ga0vUsRa9DJRl33D5nptdcOpKB2F4IWDYDQ_Ozx403QCrNXI0_afHXs6flV7uw5jtGKHNC3fsOBjqdz-nj4'
 
     # Connecting to dropbox
     try:
@@ -186,6 +186,10 @@ def update_dropbox_logsfile(log_content):
 
     # Downloading server file contents and writting to local file
     print('-- Preserving existing data. Downloading server file contents and writting to local file')
+    
+    # to print the availabe files
+    # print(dbx.files_list_folder(''))
+
     with open(log_filename, 'wb') as llf:
         _, response = dbx.files_download('/' + log_filename)
         llf.write(response.content)
