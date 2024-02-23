@@ -171,6 +171,7 @@ def update_dropbox_logsfile(log_content):
     print('\n\nInside update_dropbox_logsfile()')
     app_key = st.secrets['dbx_app_key']
     app_secret = st.secrets['dbx_app_secret']
+    
     token = st.secrets['dbx_token']
     # token = ''
 
