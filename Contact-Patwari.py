@@ -18,12 +18,12 @@ log_filename = 'contactpatwari-logs.csv'
 df = None
 # extracted from the df mouza column and hard coded. To avoid unnecessary computation. However, loaded processed data can be sent to the prepare_known_mouzas_list and uncommented the 3rd last line to get this list printed in the terminal.
 data_mouzas = [
-   'Barranga', 'Thati Kalra', ' Thati Chah', ' Dhok Dera', 'Moza Adleky', 'Sodyke', 'Chak Muhammad Pur', '205/9R', 'Kotli Kohala ', 'Melay Wali', 'Burj Jae', 'Ahmad Shah Wali', '213/9R', '214/9R', '215/9R', 'Garhi Ikhtiar Khan ', 'Leiti', 'Dora Sohu', 'Kot Raja', ' Chak 8 Sb', ' Uppi', 'Litri Janobi', 'Jandawala', ' 46/Db ', 'Chak No 219/9R. 296/Hr', 'Havli Coranga', ' Waliat Pur', 'Dhoray Wala', ' Thathi Sameja', 'Khalti', ' Chak No 162Np', ' Chak No 166Np', '4', '5', '114', '116 Dnb', 'Jhok Yar Shah', ' Chabri Bala Sharqi ', 'Ladan', ' Usman Dona', 'Patti Shohani', ' Patti Sultan Lashari', ' Patti Darwesh Lashari ', 'Kot Daud', ' Kehro Kaheri', 'Bahesti', 'Mad Koura', 'Raheem Yar Khan', ' Iman Garh', ' Koot Kandhara Singh', '237/9R', ' 238/9R', 'Kisran ', 'Bhonawali ', 'Dhullian', ' Ghreebwal ', 'Pirana', ' Rawal', ' Domiyal', ' Nathial', ' Dhoke Halim', 'Pirani ', 'Mikyal', ' Spyal', 'Dhok Gangawali ', 'Ghuman', 'Masu Sikhani', 'Ahmadani', 'Shadan', ' Lound', ' Chak Kandi Wala', 'Kofli', 'Gazi', 'Kala', 'Basti Ranjha', 'Ramin', 'Shero Dasti', 'Joni', 'Gajani', 'Pati Tali', 'Bait Sawai', 'Shah Sadar Din', 'Chak Bahadur Garh', 'Kot Mubarak Shumali', 'Kot Mubarak Janubi', 'Thaddi', 'Pati Sohani', 'Rakh Dhao Sheikhani', 'Qadra Jarwar', 'Chak Nao Abad', 'Peer Adil', 'Chak Jarwar', 'Kot Daud', 'Jarwar Khas', 'Ranwan', 'Paki', 'Chak Jhangail', 'Ghumrani', 'Umrani', 'Jiani', 'Yaroo', 'Khalool', 'Chabrai', ' Bala', ' Gharbi', 'Jhok Yar Shah', 'Chabri Zareen', 'Rakh Chabri Zareen', 'Ladan', 'Noria Koria Gharbi', 'Noria Koria Sharqi', 'Tibi Kharak', 'Bait Malana ', 'Dalana Pati Bhochri', 'Churhatta Sindh Shumali', 'Churhatta Pachad Shumali ', 'Noor Wah', 'Baila', 'Churhatta Kot Haibat', 'Dalana Pati Khas', 'Qasba Dera', 'Gadai Gharbi', 'Gadai Shumali', 'Gadai Sharqi', 'Dera Gharbi', 'Kotla Sikhani Gharbi', 'Darh Opla', 'Chak Dalail', 'Samina Gharbi', 'Haji Ghazi Ghari', 'Darahma', 'Bait Mohrai', 'Sobha Arain', 'Haji Ghazi Sharqi', 'Dera Purana', 'Chotala', 'Guja Bahar Sial', 'Mandoos Wala', 'Bhasti Bhai ', 'Chit Sarkani', 'Paigah Chak No. 1', 'Paigah Chak No. 2', 'Paigah Chak No. 3', 'Khakhi Gharbi', 'Gagoo', 'Basti Khosa', 'Mamoori', 'Dagar Chit', 'Pai Ramdani'
-   ]
+    'Barranga', 'Moza Adleky', 'Sodyke', 'Chak Muhammad Pur', '205/9R', 'Kotli Kohala ', 'Melay Wali', 'Burj Jae', 'Ahmad Shah Wali', '213/9R', '214/9R', '215/9R', 'Garhi Ikhtiar Khan ', 'Leiti', 'Dora Sohu', 'Litri Janobi', 'Jandawala', ' 46/Db ', 'Chak No 219/9R. 296/Hr', 'Havli Coranga', ' Waliat Pur', 'Dhoray Wala', ' Thathi Sameja', 'Khalti', ' Chak No 162Np', ' Chak No 166Np', '4', '5', '114', '116 Dnb', 'Jhok Yar Shah', ' Chabri Bala Sharqi ', 'Ladan', ' Usman Dona', 'Patti Shohani', ' Patti Sultan Lashari', ' Patti Darwesh Lashari ', 'Kot Daud', ' Kehro Kaheri', 'Bahesti', 'Mad Koura', 'Raheem Yar Khan', ' Iman Garh', ' Koot Kandhara Singh', '237/9R', ' 238/9R', 'Dhullian', ' Ghreebwal ', 'Pirana', ' Rawal', ' Domiyal', ' Nathial', ' Dhoke Halim', 'Pirani ', 'Mikyal', ' Spyal', 'Dhok Gangawali ', 'Ghuman', 'Masu Sikhani', 'Ahmadani', 'Shadan', ' Lound', ' Chak Kandi Wala', 'Kofli', 'Gazi', 'Kala', 'Basti Ranjha', 'Ramin', 'Shero Dasti', 'Joni', 'Gajani', 'Pati Tali', 'Bait Sawai', 'Shah Sadar Din', 'Chak Bahadur Garh', 'Kot Mubarak Shumali', 'Kot Mubarak Janubi', 'Thaddi', 'Pati Sohani', 'Rakh Dhao Sheikhani', 'Qadra Jarwar', 'Chak Nao Abad', 'Peer Adil', 'Chak Jarwar', 'Kot Daud', 'Jarwar Khas', 'Ranwan', 'Paki', 'Chak Jhangail', 'Ghumrani', 'Umrani', 'Jiani', 'Yaroo', 'Khalool', 'Chabrai', 'Bala', ' Gharbi', 'Jhok Yar Shah', 'Chabri Zareen', 'Rakh Chabri Zareen', 'Ladan', 'Noria Koria Gharbi', 'Noria Koria Sharqi', 'Tibi Kharak', 'Bait Malana ', 'Dalana Pati Bhochri', 'Churhatta Sindh Shumali', 'Churhatta Pachad Shumali ', 'Noor Wah', 'Baila', 'Churhatta Kot Haibat', 'Dalana Pati Khas', 'Qasba Dera', 'Gadai Gharbi', 'Gadai Shumali', 'Gadai Sharqi', 'Dera Gharbi', 'Kotla Sikhani Gharbi', 'Darh Opla', 'Chak Dalail', 'Samina Gharbi', 'Haji Ghazi Ghari', 'Darahma', 'Bait Mohrai', 'Sobha Arain', 'Haji Ghazi Sharqi', 'Dera Purana', 'Chotala', 'Guja Bahar Sial', 'Mandoos Wala', 'Bhasti Bhai ', 'Chit Sarkani', 'Paigah Chak No. 1', 'Paigah Chak No. 2', 'Paigah Chak No. 3', 'Khakhi Gharbi', 'Gagoo', 'Basti Khosa', 'Mamoori', 'Dagar Chit', 'Pai Ramdani', 'Amanpur', 'Kot Milyaran', 'Rakh Dhok Meela', 'Dhok Meela', 'Pirani', 'Thatti Saidu Shah', 'Gilyal Khurdan', 'Hajri', 'Dhubola', 'Kasran', 'Bho Nawali', 'Kohala', 'Dhok Ganga Wali', 'Dhok Anayat', 'Maghiana', 'Ferozewala', 'Rakh Mira Nalhad', 'Rakh Aziz Khan', 'Rakh Salkhan Singh', 'Dhok Rahmat', 'Chak Mansoor Khan', 'Makiyal', 'Speyla', 'Rakh Jangla Autran', 'Jangla', 'Autran', 'Nushera', 'Sorg', 'Sarwai', 'Kumriyal', 'Dhok Qazi', 'Dhok Daira', 'Thatti Kallar', 'Thatti Chah', 'Shahbazpur', 'Dhak Arazi', 'Dandi', 'Rakh Naka Kala', 'Ganda Kas', 'Sohal Kumriala', 'Nathiyal', 'Domeyal', 'Dhok Haleem', 'Pirana', 'Langrial', 'Kant', 'Sohal', 'Ratdian', 'Thatti Noor Ahmed Shah', 'Dhok Ganja', 'Dhok Gujjar Almaroof Dhok Muhammad Wali', 'Baurey', 'Khore', 'Ghareebwal', 'Dhok Milyaran', 'Dhalian', 'Rakh Tanwan', 'Tanwan', 'Nothian Malkan', 'Pand', 'Bakhwala', 'Mianwala', 'Malliwala', 'Nikah Ghulam Shah', 'Sora'
+    ]
 
 # Takes processed_df (with only patwari_name, contact_no, mouza) and prepares data_mouzas list with 1 mouza  on each index in title case and return it.
 def prepare_known_mouzas_list(processed_df):
-    '''Takes processed_df (with only patwari_name, contact_no, mouza) and prepares data_mouzas list with 1 mouza on each index in title case and return it.'''
+    '''Takes processed_df (with only patwari_name, contact_no, mouza) and prepares data_mouzas list containing 1 mouza on each index in title case and return it.'''
     # preparing data_mouzas list
     print('Inside prepare_known_mouzas_list')
     print('-- Preparing data_mouzas list')
@@ -170,6 +170,7 @@ def handle_user_input(mouza_name):
 def update_dropbox_logsfile(log_content):
     print('\n\nInside update_dropbox_logsfile()')
     # app_key = st.secrets['dbx_app_key']
+    app_key = 'es7yaemdn26frs7'
     # app_secret = st.secrets['dbx_app_secret']
     
     # token = st.secrets['dbx_token']
@@ -181,38 +182,39 @@ def update_dropbox_logsfile(log_content):
         dbx.users_get_current_account()
         print('-- Dropbox connection successful.')
 
+        # Downloading server file contents and writting to local file
+        print('-- Preserving existing data. Downloading server file contents and writting to local file')
+        
+        # to print the availabe files
+        # print(dbx.files_list_folder(''))
+
+        with open(log_filename, 'wb') as llf:
+            _, response = dbx.files_download('/' + log_filename)
+            llf.write(response.content)
+
+        print('-- done')
+
+        # Updating downloaded file
+        print('-- Appending log details')
+        with open(log_filename, 'a', newline = '') as lf:
+            csv_writter = csv.writer(lf)
+            csv_writter.writerow(log_content)
+
+        # Uploading updated file to server
+        print('-- Uploading updated file to server')
+        try:
+            with open(log_filename, 'rb') as lf:
+                dbx.files_upload(lf.read(), '/' + log_filename, mode = dropbox.files.WriteMode('overwrite'))
+
+            print('-- Server file uploaded (overwritten) successfully. Returning 0\n')
+            return 0
+
+        except:
+            print('-- An error occured while uploading the updated file. Returning 1\n')
+            return 1
+        
     except:
         print('-- Error connecting to dropbox.')
-
-    # Downloading server file contents and writting to local file
-    print('-- Preserving existing data. Downloading server file contents and writting to local file')
-    
-    # to print the availabe files
-    # print(dbx.files_list_folder(''))
-
-    with open(log_filename, 'wb') as llf:
-        _, response = dbx.files_download('/' + log_filename)
-        llf.write(response.content)
-
-    print('-- done')
-
-    # Updating downloaded file
-    print('-- Appending log details')
-    with open(log_filename, 'a', newline = '') as lf:
-        csv_writter = csv.writer(lf)
-        csv_writter.writerow(log_content)
-
-    # Uploading updated file to server
-    print('-- Uploading updated file to server')
-    try:
-        with open(log_filename, 'rb') as lf:
-            dbx.files_upload(lf.read(), '/' + log_filename, mode = dropbox.files.WriteMode('overwrite'))
-
-        print('-- Server file uploaded (overwritten) successfully. Returning 0\n')
-        return 0
-
-    except:
-        print('-- An error occured while uploading the updated file. Returning 1\n')
         return 1
 
 
@@ -239,11 +241,14 @@ def record_log(name, profession, contact, mouza, status):
 
     # Handling log updation
     print('-- Handling log updation. Going inside update_dropbox_logsfile')
-    update_dropbox_logsfile(log_content)
+    response = update_dropbox_logsfile(log_content)
 
-    print('-- Log saved. Returning 0\n')
-    return 0
-
+    if response == 0:
+        print('-- Log saved. Returning 0\n')
+        return 0
+    else:
+        print('-- Log saving failed. Returning 1\n')
+        return 1
 
 ###################################### MAIN
 def main():
@@ -306,8 +311,12 @@ def main():
 
                     # Recording that the username with profession and contact_no successfully takesn the details of patwari of mouza: selected mouze. The file is a csv.
                     print('Recording log..')
-                    record_log(session.user_name, session.user_profession, session.user_contact, session.selected_mouza, 'Successful')
-                    print('Done \n\n')
+                    response = record_log(session.user_name, session.user_profession, session.user_contact, session.selected_mouza, 'Successful')
+
+                    if response == 0:
+                        print('Done successfully \n\n')
+                    else:
+                        print('Recording log failed.')
                     
                     # Printing output
                     print('\n-------------------------------------------------------- \
@@ -322,8 +331,12 @@ def main():
                 else:
                     # recording logs
                     print('Recording log..')
-                    record_log(session.user_name, session.user_profession, session.user_contact, session.selected_mouza, 'No Details')
-                    print('Done \n\n')
+                    response = record_log(session.user_name, session.user_profession, session.user_contact, session.selected_mouza, 'No Details')
+
+                    if response == 0:
+                        print('Done successfully \n\n')
+                    else:
+                        print('Recording log failed.')
 
                     # printing output
                     st.error('Details not found.')
@@ -333,8 +346,12 @@ def main():
             else:
                 # recording logs
                 print('Recording log..')
-                record_log(session.user_name, session.user_profession, session.user_contact, session.selected_mouza, 'Validation Failed')
-                print('Done \n\n')
+                response = record_log(session.user_name, session.user_profession, session.user_contact, session.selected_mouza, 'Validation Failed')
+
+                if response == 0:
+                    print('Done successfully \n\n')
+                else:
+                    print('Recording log failed.')
                 # Uncomment for debugging
                 # st.write(session)
 
