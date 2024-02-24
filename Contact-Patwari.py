@@ -170,11 +170,10 @@ def handle_user_input(mouza_name):
 def update_dropbox_logsfile(log_content):
     print('\n\nInside update_dropbox_logsfile()')
     # app_key = st.secrets['dbx_app_key']
-    app_key = 'es7yaemdn26frs7'
     # app_secret = st.secrets['dbx_app_secret']
     
-    # token = st.secrets['dbx_token']
-    token = 'sl.BwKlgFhRDGxHGLxhQA72E5DQZN-9EtMwdAUN079xC9zM_bUSiy0r-PbLiI8-ga0vUsRa9DJRl33D5nptdcOpKB2F4IWDYDQ_Ozx403QCrNXI0_afHXs6flV7uw5jtGKHNC3fsOBjqdz-nj4'
+    token = st.secrets['dbx_token']
+    # token = ''
 
     # Connecting to dropbox
     try:
